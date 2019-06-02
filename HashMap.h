@@ -49,18 +49,18 @@ template<typename hash,typename map>
 class HashMap {
     public:
         //deprecated constructor
-        HashMap(HashType<hash,map>* newMap,byte newSize){
+        HashMap(HashType<hash,map>* newMap,uint8_t newSize){
             hashMap = newMap;
             size = newSize;
-            for (byte i=0; i<size; i++){
+            for (uint8_t i=0; i<size; i++){
                 hashMap[i].reset();
             }
         }
 
-        HashMap(byte newSize) {
+        HashMap(uint8_t newSize) {
             hashMap = new HashType<hash,map>[newSize];
             size = newSize;
-            for (byte i=0; i<size; i++){
+            for (uint8_t i=0; i<size; i++){
                 hashMap[i].reset();
             }
         }
@@ -69,12 +69,12 @@ class HashMap {
           delete(hashMap);
         }
         
-        HashType<hash,map>& operator[](byte x){
+        HashType<hash,map>& operator[](uint8_t x){
             return hashMap[x%size];
         }
         
-        byte getIndexOf(hash key){
-            for (byte i=0; i<size; i++){
+        uint8_t getIndexOf(hash key){
+            for (uint8_t i=0; i<size; i++){
                 if (hashMap[i].getHash()==key){
                     return i;
                 }
@@ -82,19 +82,19 @@ class HashMap {
         }
         
         map getValueOf(hash key){
-            for (byte i=0; i<size; i++){
+            for (uint8_t i=0; i<size; i++){
                 if (hashMap[i].getHash()==key){
                     return hashMap[i].getValue();
                 }
             }
         }
 
-        byte getSize() {
+        uint8_t getSize() {
             return size;
         }
         
         void debug(){
-            for (byte i=0; i<size; i++){
+            for (uint8_t i=0; i<size; i++){
                 Serial.print(hashMap[i].getHash());
                 Serial.print(" - ");
                 Serial.println(hashMap[i].getValue());
@@ -103,7 +103,7 @@ class HashMap {
         
     private:
         HashType<hash,map>* hashMap;
-        byte size;
+        uint8_t size;
 };
 
 #endif
